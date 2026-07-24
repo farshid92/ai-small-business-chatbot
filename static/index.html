@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HomeStyle Living</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100">
+
+    <!-- Navigation -->
+    <nav class="bg-white shadow">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between">
+            <h1 class="text-2xl font-bold text-slate-800">
+                🏡 HomeStyle Living
+            </h1>
+
+            <button class="bg-slate-800 text-white px-5 py-2 rounded-lg hover:bg-slate-700">
+                Shop Now
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="text-center py-20 bg-white">
+        <h2 class="text-5xl font-bold mb-6">
+            Modern Furniture for Modern Homes
+        </h2>
+
+        <p class="text-gray-600 text-lg max-w-2xl mx-auto">
+            Discover beautiful furniture and let our AI assistant help you
+            choose the perfect products for your home.
+        </p>
+    </section>
+
+    <!-- Featured Products -->
+    <section class="max-w-6xl mx-auto py-16 px-6">
+
+        <h2 class="text-3xl font-bold mb-10 text-center">
+            Featured Products
+        </h2>
+
+        <div class="grid md:grid-cols-3 gap-8">
+
+            <div class="bg-white rounded-xl shadow p-6">
+                <div id="featured-img-0" class="h-48 bg-gray-200 rounded-lg mb-4"></div>
+
+                <h3 id="featured-title-0" class="text-xl font-semibold">
+                    Nordic Oak Coffee Table
+                </h3>
+
+                <p id="featured-desc-0" class="text-gray-600 mt-2">
+                    Scandinavian design with solid oak.
+                </p>
+
+                <p id="featured-price-0" class="mt-4 font-bold text-lg">
+                    $249
+                </p>
+            </div>
+
+            <div class="bg-white rounded-xl shadow p-6">
+                <div id="featured-img-1" class="h-48 bg-gray-200 rounded-lg mb-4"></div>
+
+                <h3 id="featured-title-1" class="text-xl font-semibold">
+                    Scandinavian Sofa
+                </h3>
+
+                <p id="featured-desc-1" class="text-gray-600 mt-2">
+                    Comfortable 3-seat fabric sofa.
+                </p>
+
+                <p id="featured-price-1" class="mt-4 font-bold text-lg">
+                    $899
+                </p>
+            </div>
+
+            <div class="bg-white rounded-xl shadow p-6">
+                <div id="featured-img-2" class="h-48 bg-gray-200 rounded-lg mb-4"></div>
+
+                <h3 id="featured-title-2" class="text-xl font-semibold">
+                    Walnut Bookshelf
+                </h3>
+
+                <p id="featured-desc-2" class="text-gray-600 mt-2">
+                    Minimal bookshelf for home offices.
+                </p>
+
+                <p id="featured-price-2" class="mt-4 font-bold text-lg">
+                    $399
+                </p>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- AI Assistant -->
+
+    <!-- Image Gallery -->
+    <section class="max-w-6xl mx-auto py-16 px-6">
+
+        <h2 class="text-3xl font-bold mb-10 text-center">
+            Room Gallery
+        </h2>
+
+        <div id="gallery" class="grid md:grid-cols-3 gap-6">
+            <!-- Images will be injected here by app.js -->
+        </div>
+
+    </section>
+
+    <!-- AI Assistant -->
+    <section class="max-w-4xl mx-auto mb-20 px-6">
+
+        <div class="bg-white rounded-2xl shadow-lg p-8">
+
+            <h2 class="text-3xl font-bold mb-4">
+                🤖 AI Shopping Assistant
+            </h2>
+
+            <p class="text-gray-600 mb-6">
+                Ask about products, shipping, returns, or get recommendations.
+            </p>
+
+            <div class="flex gap-3">
+
+                <input id="prompt" class="flex-1 border rounded-lg px-4 py-3"
+                    placeholder="Example: Recommend a coffee table under $300">
+
+                <button id="send-btn" class="bg-slate-800 text-white px-6 rounded-lg hover:bg-slate-700">
+                    Send
+                </button>
+
+            </div>
+
+            <div id="response" class="mt-8 bg-gray-100 rounded-lg p-5 min-h-32">
+
+                <p class="text-gray-500">
+                    AI responses will appear here...
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- Footer -->
+
+    <footer class="bg-slate-800 text-white text-center py-6">
+
+        © 2026 HomeStyle Living
+
+    </footer>
+
+    <script src="/app.js"></script>
+</body>
+
+</html>
