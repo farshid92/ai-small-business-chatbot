@@ -13,14 +13,18 @@
 
     <!-- Navigation -->
     <nav class="bg-white shadow">
-        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between">
-            <h1 class="text-2xl font-bold text-slate-800">
-                🏡 HomeStyle Living
-            </h1>
-
-            <button class="bg-slate-800 text-white px-5 py-2 rounded-lg hover:bg-slate-700">
-                Shop Now
-            </button>
+        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between gap-4">
+            <div class="flex items-center gap-4">
+                <h1 class="text-2xl font-bold text-slate-800">
+                    🏡 HomeStyle Living
+                </h1>
+                <a href="#bedroom" class="text-slate-600 hover:text-slate-900">Bedroom</a>
+                <a href="#living-room" class="text-slate-600 hover:text-slate-900">Living Room</a>
+                <a href="#office" class="text-slate-600 hover:text-slate-900">Office</a>
+            </div>
+            <a href="#assistant" class="bg-slate-800 text-white px-5 py-2 rounded-lg hover:bg-slate-700">
+                Chat with AI
+            </a>
         </div>
     </nav>
 
@@ -36,80 +40,85 @@
         </p>
     </section>
 
-    <!-- Featured Products -->
+    <!-- Shop by Room -->
     <section class="max-w-6xl mx-auto py-16 px-6">
-
         <h2 class="text-3xl font-bold mb-10 text-center">
-            Featured Products
+            Shop by Room
         </h2>
 
-        <div class="grid md:grid-cols-3 gap-8">
-
-            <div class="bg-white rounded-xl shadow p-6">
-                <div id="featured-img-0" class="h-48 bg-gray-200 rounded-lg mb-4"></div>
-
-                <h3 id="featured-title-0" class="text-xl font-semibold">
-                    Nordic Oak Coffee Table
-                </h3>
-
-                <p id="featured-desc-0" class="text-gray-600 mt-2">
-                    Scandinavian design with solid oak.
-                </p>
-
-                <p id="featured-price-0" class="mt-4 font-bold text-lg">
-                    $249
-                </p>
+        <div class="grid md:grid-cols-3 gap-6">
+            <div class="bg-white rounded-3xl shadow-lg p-8 text-center">
+                <p class="text-sm uppercase tracking-[0.3em] text-slate-500 mb-4">Bedroom</p>
+                <h3 class="text-2xl font-bold mb-3">Restful sleep spaces</h3>
+                <p class="text-gray-600 mb-6">Modern beds, nightstands, and wardrobes for a calm retreat.</p>
+                <a href="#bedroom" class="inline-block bg-slate-800 text-white px-6 py-3 rounded-full">Explore</a>
             </div>
-
-            <div class="bg-white rounded-xl shadow p-6">
-                <div id="featured-img-1" class="h-48 bg-gray-200 rounded-lg mb-4"></div>
-
-                <h3 id="featured-title-1" class="text-xl font-semibold">
-                    Scandinavian Sofa
-                </h3>
-
-                <p id="featured-desc-1" class="text-gray-600 mt-2">
-                    Comfortable 3-seat fabric sofa.
-                </p>
-
-                <p id="featured-price-1" class="mt-4 font-bold text-lg">
-                    $899
-                </p>
+            <div class="bg-white rounded-3xl shadow-lg p-8 text-center">
+                <p class="text-sm uppercase tracking-[0.3em] text-slate-500 mb-4">Living Room</p>
+                <h3 class="text-2xl font-bold mb-3">Comfort and style</h3>
+                <p class="text-gray-600 mb-6">Designer sofas, coffee tables, and lighting that feel curated.</p>
+                <a href="#living-room" class="inline-block bg-slate-800 text-white px-6 py-3 rounded-full">Explore</a>
             </div>
-
-            <div class="bg-white rounded-xl shadow p-6">
-                <div id="featured-img-2" class="h-48 bg-gray-200 rounded-lg mb-4"></div>
-
-                <h3 id="featured-title-2" class="text-xl font-semibold">
-                    Walnut Bookshelf
-                </h3>
-
-                <p id="featured-desc-2" class="text-gray-600 mt-2">
-                    Minimal bookshelf for home offices.
-                </p>
-
-                <p id="featured-price-2" class="mt-4 font-bold text-lg">
-                    $399
-                </p>
+            <div class="bg-white rounded-3xl shadow-lg p-8 text-center">
+                <p class="text-sm uppercase tracking-[0.3em] text-slate-500 mb-4">Office</p>
+                <h3 class="text-2xl font-bold mb-3">Work-ready rooms</h3>
+                <p class="text-gray-600 mb-6">Ergonomic desks, chairs, and shelves built for productivity.</p>
+                <a href="#office" class="inline-block bg-slate-800 text-white px-6 py-3 rounded-full">Explore</a>
             </div>
-
         </div>
-
     </section>
 
-    <!-- AI Assistant -->
-
-    <!-- Image Gallery -->
-    <section class="max-w-6xl mx-auto py-16 px-6">
-
-        <h2 class="text-3xl font-bold mb-10 text-center">
-            Room Gallery
-        </h2>
-
-        <div id="gallery" class="grid md:grid-cols-3 gap-6">
-            <!-- Images will be injected here by app.js -->
+    <!-- Bedroom Section -->
+    <section id="bedroom" class="max-w-6xl mx-auto py-16 px-6">
+        <div class="flex flex-col md:flex-row items-center justify-between gap-6 mb-10">
+            <div>
+                <p class="text-sm uppercase tracking-[0.3em] text-slate-500 mb-3">Bedroom</p>
+                <h2 class="text-3xl font-bold">A cozy bedroom collection</h2>
+                <p class="text-gray-600 mt-3 max-w-2xl">Choose elegant bedroom furniture and lighting for a relaxing
+                    space.</p>
+            </div>
+            <p class="text-lg font-semibold text-slate-800">Starting at $179</p>
         </div>
+        <div id="bedroom-cards" class="grid md:grid-cols-3 gap-6"></div>
+    </section>
 
+    <!-- Living Room Section -->
+    <section id="living-room" class="max-w-6xl mx-auto py-16 px-6 bg-slate-50 rounded-3xl">
+        <div class="flex flex-col md:flex-row items-center justify-between gap-6 mb-10">
+            <div>
+                <p class="text-sm uppercase tracking-[0.3em] text-slate-500 mb-3">Living Room</p>
+                <h2 class="text-3xl font-bold">Design-forward living areas</h2>
+                <p class="text-gray-600 mt-3 max-w-2xl">Brighten your living room with cozy seating and sleek accents.
+                </p>
+            </div>
+            <p class="text-lg font-semibold text-slate-800">Starting at $199</p>
+        </div>
+        <div id="living-room-cards" class="grid md:grid-cols-3 gap-6"></div>
+    </section>
+
+    <!-- Office Section -->
+    <section id="office" class="max-w-6xl mx-auto py-16 px-6">
+        <div class="flex flex-col md:flex-row items-center justify-between gap-6 mb-10">
+            <div>
+                <p class="text-sm uppercase tracking-[0.3em] text-slate-500 mb-3">Office</p>
+                <h2 class="text-3xl font-bold">Productive workspaces</h2>
+                <p class="text-gray-600 mt-3 max-w-2xl">Smart office furniture that blends comfort and efficiency.</p>
+            </div>
+            <p class="text-lg font-semibold text-slate-800">Starting at $179</p>
+        </div>
+        <div id="office-cards" class="grid md:grid-cols-3 gap-6"></div>
+    </section>
+
+    <!-- Room Gallery -->
+    <section class="max-w-6xl mx-auto py-16 px-6">
+        <div class="flex items-center justify-between gap-6 mb-10">
+            <div>
+                <p class="text-sm uppercase tracking-[0.3em] text-slate-500 mb-3">Gallery</p>
+                <h2 class="text-3xl font-bold">Modern room inspiration</h2>
+            </div>
+            <p class="text-gray-600 max-w-xl">A curated selection of standout pieces from each room category.</p>
+        </div>
+        <div id="gallery" class="grid md:grid-cols-3 gap-6"></div>
     </section>
 
     <!-- AI Assistant -->
