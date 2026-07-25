@@ -3,8 +3,11 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.responses import JSONResponse
 import os
 from pydantic import BaseModel
+from dotenv import load_dotenv
 import json
 import urllib.request
+
+load_dotenv()
 
 app = FastAPI(title="HomeStyle Living")
 
@@ -43,18 +46,41 @@ async def chat_endpoint(body: ChatRequest):
     """
     gemini_url = os.getenv('GEMINI_API_URL')
     gemini_key = os.getenv('GEMINI_API_KEY')
+    gemini_model = os.getenv('GEMINI_MODEL', 'gemini-1.5-flash')
 
-    if gemini_url and gemini_key:
-        payload = json.dumps({"prompt": body.prompt}).encode('utf-8')
-        req = urllib.request.Request(gemini_url, data=payload,
-                                     headers={
-                                         'Content-Type': 'application/json',
-                                         'Authorization': f'Bearer {gemini_key}'
-                                     })
+    if gemini_key:
+        if not gemini_url:
+            gemini_url = f'https://generativelanguage.googleapis.com/v1beta2/models/{gemini_model}:generate'
+
+        payload = json.dumps({
+            "prompt": {"text": body.prompt},
+            "temperature": 0.3,
+            "candidate_count": 1
+        }).encode('utf-8')
+
+        headers = {'Content-Type': 'application/json'}
+        if gemini_key:
+            headers['Authorization'] = f'Bearer {gemini_key}'
+
+        req = urllib.request.Request(gemini_url, data=payload, headers=headers)
         try:
             with urllib.request.urlopen(req, timeout=20) as resp:
                 resp_data = json.load(resp)
-            return JSONResponse(resp_data)
+
+            if isinstance(resp_data, dict):
+                if 'candidates' in resp_data and resp_data['candidates']:
+                    text = resp_data['candidates'][0].get('output')
+                elif 'output' in resp_data:
+                    text = resp_data['output']
+                else:
+                    text = json.dumps(resp_data)
+            else:
+                text = str(resp_data)
+
+            return JSONResponse({"reply": text})
+        except urllib.error.HTTPError as e:
+            err_text = e.read().decode('utf-8', errors='ignore')
+            return JSONResponse({"error": "provider_error", "message": err_text})
         except Exception as e:
             return JSONResponse({"error": "provider_error", "message": str(e)})
 
