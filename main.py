@@ -38,42 +38,62 @@ def list_images():
 
 @app.post('/api/chat')
 async def chat_endpoint(body: ChatRequest):
-    """Accepts {"prompt": "..."} and returns AI reply.
+    """Accepts {"prompt": "..."} and returns AI reply from Gemini API.
 
-    If environment variables `GEMINI_API_URL` and `GEMINI_API_KEY` are set,
-    this will proxy the request to that endpoint (expects JSON request/response).
-    Otherwise returns a mock reply for local demos.
+    Uses environment variables:
+    - GEMINI_API_KEY: Your API key from Google AI Studio
+    - GEMINI_MODEL: Model name (default: gemini-1.5-flash)
+    
+    If no API key is set, returns a mock demo response.
     """
-    gemini_url = os.getenv('GEMINI_API_URL')
     gemini_key = os.getenv('GEMINI_API_KEY')
-    gemini_model = os.getenv('GEMINI_MODEL', 'gemini-1.5-flash')
+    gemini_model = os.getenv('GEMINI_MODEL', 'gemini-flash-latest')
 
     if gemini_key:
-        if not gemini_url:
-            gemini_url = f'https://generativelanguage.googleapis.com/v1beta2/models/{gemini_model}:generate'
+        # Use the latest Google Generative AI API endpoint
+        gemini_url = f'https://generativelanguage.googleapis.com/v1beta/models/{gemini_model}:generateContent'
 
         payload = json.dumps({
-            "prompt": {"text": body.prompt},
-            "temperature": 0.3,
-            "candidate_count": 1
+            "system_instruction": {
+                "parts": [{
+                    "text": "You are a sales assistant for Homestyle Living. ALWAYS format responses using ONLY simple lists. NEVER use paragraphs, asterisks, bold, markdown, or long sentences.\n\nRULES:\n- Start each item on a NEW LINE with a number: 1. 2. 3.\n- Each item must be 1-2 sentences MAX.\n- Use plain text only - NO **bold**, NO _italic_, NO # headers.\n- Leave a blank line between different sections.\n- If showing multiple items, use ONLY: 1. Item\n2. Item\n3. Item\n\nEXAMPLE:\nYes, we have Scandinavian sofas.\n\n1. Nordic Minimalist 3-Seater ($799) - Clean lines, light oak legs, grey fabric\n2. Freja Compact Loveseat ($549) - Perfect for small spaces, soft tones\n3. Both available in different colors\n\nNEVER write like this: \"We have sofas with clean lines, light oak legs...\" Always use the numbered list format above."
+                }]
+            },
+            "contents": [
+                {
+                    "parts": [
+                        {
+                            "text": body.prompt
+                        }
+                    ]
+                }
+            ]
         }).encode('utf-8')
 
-        headers = {'Content-Type': 'application/json'}
-        if gemini_key:
-            headers['Authorization'] = f'Bearer {gemini_key}'
+        headers = {
+            'Content-Type': 'application/json',
+            'X-goog-api-key': gemini_key
+        }
 
         req = urllib.request.Request(gemini_url, data=payload, headers=headers)
         try:
             with urllib.request.urlopen(req, timeout=20) as resp:
                 resp_data = json.load(resp)
 
+            # Extract text from Gemini API response
             if isinstance(resp_data, dict):
                 if 'candidates' in resp_data and resp_data['candidates']:
-                    text = resp_data['candidates'][0].get('output')
-                elif 'output' in resp_data:
-                    text = resp_data['output']
+                    candidate = resp_data['candidates'][0]
+                    if 'content' in candidate and 'parts' in candidate['content']:
+                        parts = candidate['content']['parts']
+                        if parts and 'text' in parts[0]:
+                            text = parts[0]['text']
+                        else:
+                            text = json.dumps(parts)
+                    else:
+                        text = json.dumps(candidate)
                 else:
-                    text = json.dumps(resp_data)
+                    text = "No response from Gemini API"
             else:
                 text = str(resp_data)
 
@@ -84,7 +104,7 @@ async def chat_endpoint(body: ChatRequest):
         except Exception as e:
             return JSONResponse({"error": "provider_error", "message": str(e)})
 
-    # Mock reply for demo when no key/url provided
+    # Mock reply for demo when no key provided
     reply = f"(demo) I received your prompt: {body.prompt}. This is a mock reply."
     return JSONResponse({"reply": reply})
 app.mount("/", StaticFiles(directory="static", html=True), name="static")

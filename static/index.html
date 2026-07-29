@@ -122,7 +122,7 @@
     </section>
 
     <!-- AI Assistant -->
-    <section class="max-w-4xl mx-auto mb-20 px-6">
+    <section id="assistant" class="max-w-4xl mx-auto mb-20 px-6">
 
         <div class="bg-white rounded-2xl shadow-lg p-8">
 
@@ -134,22 +134,21 @@
                 Ask about products, shipping, returns, or get recommendations.
             </p>
 
+            <div id="chat-history"
+                class="mb-6 bg-gray-50 rounded-lg p-4 min-h-48 max-h-96 overflow-y-auto border border-gray-200">
+                <p class="text-gray-500 text-center py-16">
+                    Start chatting below...
+                </p>
+            </div>
+
             <div class="flex gap-3">
 
                 <input id="prompt" class="flex-1 border rounded-lg px-4 py-3"
-                    placeholder="Example: Recommend a coffee table under $300">
+                    placeholder="Example: Recommend a coffee table under $300" autocomplete="off">
 
                 <button id="send-btn" class="bg-slate-800 text-white px-6 rounded-lg hover:bg-slate-700">
                     Send
                 </button>
-
-            </div>
-
-            <div id="response" class="mt-8 bg-gray-100 rounded-lg p-5 min-h-32">
-
-                <p class="text-gray-500">
-                    AI responses will appear here...
-                </p>
 
             </div>
 

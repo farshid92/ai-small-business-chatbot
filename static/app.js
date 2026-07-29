@@ -18,19 +18,75 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const btn = document.getElementById('send-btn');
     const input = document.getElementById('prompt');
-    const respEl = document.getElementById('response');
+    const chatHistory = document.getElementById('chat-history');
 
-    if (!btn || !input || !respEl) return;
+    if (!btn || !input || !chatHistory) return;
 
-    btn.addEventListener('click', async () => {
+    // Clear initial placeholder on first interaction
+    let isFirstMessage = true;
+
+    async function handleSendMessage() {
         const prompt = input.value.trim();
         if (!prompt) return;
-        respEl.innerHTML = '<p class="text-gray-600">Thinking...</p>';
+
+        // Clear placeholder on first message
+        if (isFirstMessage) {
+            chatHistory.innerHTML = '';
+            isFirstMessage = false;
+        }
+
+        // Add user message to chat
+        const userMsg = document.createElement('div');
+        userMsg.className = 'mb-4 flex justify-end';
+        userMsg.innerHTML = `<div class="bg-slate-800 text-white rounded-lg px-4 py-3 max-w-xs">${escapeHtml(prompt)}</div>`;
+        chatHistory.appendChild(userMsg);
+
+        // Clear input
+        input.value = '';
+
+        // Add loading message
+        const loadingMsg = document.createElement('div');
+        loadingMsg.className = 'mb-4 flex justify-start';
+        loadingMsg.innerHTML = `<div class="bg-gray-200 text-gray-700 rounded-lg px-4 py-3">Thinking...</div>`;
+        chatHistory.appendChild(loadingMsg);
+
+        // Scroll to bottom
+        chatHistory.scrollTop = chatHistory.scrollHeight;
+
+        // Get response from AI
         const result = await sendPrompt(prompt);
-        const text = result.reply || result.output || JSON.stringify(result);
-        respEl.innerHTML = `<p>${text}</p>`;
+        const text = result.reply || result.output || 'Error: No response received.';
+
+        // Remove loading message
+        loadingMsg.remove();
+
+        // Add AI response
+        const aiMsg = document.createElement('div');
+        aiMsg.className = 'mb-4 flex justify-start';
+        aiMsg.innerHTML = `<div class="bg-gray-100 text-gray-800 rounded-lg px-4 py-3 max-w-xs">${escapeHtml(text)}</div>`;
+        chatHistory.appendChild(aiMsg);
+
+        // Scroll to bottom
+        chatHistory.scrollTop = chatHistory.scrollHeight;
+    }
+
+    // Send on button click
+    btn.addEventListener('click', handleSendMessage);
+
+    // Send on Enter key
+    input.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            handleSendMessage();
+        }
     });
 });
+
+function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
 
 function renderRoomCards(images) {
     const roomConfig = {
@@ -221,6 +277,6 @@ async function sendPrompt(prompt) {
         return data;
     } catch (err) {
         console.error(err);
-        return { reply: 'Error contacting chat backend.' };
+        return { reply: 'Error contacting chat backend. Please try again.' };
     }
 }
