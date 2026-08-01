@@ -59,7 +59,7 @@ Edit `.env` and set:
 
 ```ini
 GEMINI_API_KEY=your_free_api_key_here
-GEMINI_MODEL=gemini-1.5-flash
+GEMINI_MODEL=gemini-flash-latest
 ```
 
 Save and exit (Ctrl+X, Y, Enter in nano).

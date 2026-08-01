@@ -42,7 +42,7 @@ async def chat_endpoint(body: ChatRequest):
 
     Uses environment variables:
     - GEMINI_API_KEY: Your API key from Google AI Studio
-    - GEMINI_MODEL: Model name (default: gemini-1.5-flash)
+    - GEMINI_MODEL: Model name (default: gemini-flash-latest)
     
     If no API key is set, returns a mock demo response.
     """

@@ -11,7 +11,7 @@ An AI-powered Sales & Support Assistant for a fictional home décor store.
 
 ## Status
 
-🚧 Work in Progress
+✅ Completed through local demo, chatbot UX, and deployment preparation.
 
 ## Git Milestone Workflow
 
@@ -44,8 +44,7 @@ Then edit `.env` and set:
 
 ```ini
 GEMINI_API_KEY=your_api_key_here
-GEMINI_MODEL=gemini-1.5-flash
-# or gemini-1.5-proc if available
+GEMINI_MODEL=gemini-flash-latest
 ```
 
 ## Quick Start (Local)
@@ -107,7 +106,7 @@ Press `Ctrl+C` to stop the server.
 1. Go to [Google AI Studio](https://aistudio.google.com/app/apikey) (free tier, no credit card required for basic usage)
 2. Click **Create API Key**
 3. Copy the key and paste it into `.env` as `GEMINI_API_KEY=...`
-4. Set `GEMINI_MODEL=gemini-1.5-flash` (free tier model)
+4. Set `GEMINI_MODEL=gemini-flash-latest` (free tier model)
 
 ### Testing the Chat
 
